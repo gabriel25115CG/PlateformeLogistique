@@ -1,0 +1,17 @@
+{
+    "simulation_name": "Simulation de Logistique",
+    "start_date": "2025-01-01",
+    "end_date": "2025-12-31",
+    "parameters": {
+      "max_capacity": 1000,
+      "transport_speed": 60,
+      "warehouse_capacity": 500,
+      "delivery_time": 2
+    },
+    "simulation_details": {
+      "simulate_delivery": true,
+      "track_inventory": true,
+      "optimize_routes": false
+    }
+  }
+  
