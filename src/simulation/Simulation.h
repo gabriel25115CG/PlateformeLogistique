@@ -5,9 +5,9 @@
 #include "Warehouse.h"
 #include "Transporter.h"
 #include "Product.h"
+#include "Client.h"
 #include <vector>
 #include <memory>
-#include <chrono>  // Pour gérer le calcul du temps
 
 // Classe Simulation
 class Simulation {
@@ -15,6 +15,7 @@ private:
     SimulationParams params;  // Paramètres de la simulation
     std::vector<std::shared_ptr<Warehouse>> warehouses;  // Liste des entrepôts
     std::vector<std::shared_ptr<Transporter>> transporters;  // Liste des transporteurs
+    std::vector<std::shared_ptr<Client>> clients;  // Liste des clients
 
     // Statistiques de performance
     int totalProductsReceived = 0;  // Total des produits reçus
@@ -36,6 +37,15 @@ public:
 
     // Ajouter un produit à un entrepôt
     bool addProductToWarehouse(int warehouseId, std::shared_ptr<Product> product);
+
+    // Ajouter un client
+    void addClient(std::shared_ptr<Client> client);
+
+    // Afficher les informations des clients
+    void displayClients() const;
+
+    // Passer une commande pour un client
+    void placeOrder(int clientId, int productId);
 
     // Démarrer la simulation
     void start();

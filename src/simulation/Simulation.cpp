@@ -4,6 +4,7 @@
 #include "Product.h"
 #include <iostream>
 #include <algorithm>
+#include "Client.h"
 
 // Codes ANSI pour les couleurs
 #define RESET       "\033[0m"
@@ -23,6 +24,35 @@ Simulation::Simulation(const SimulationParams& params)
     std::cout << CYAN << BOLD << "Simulation initialized with " 
               << params.getNumWarehouses() << " warehouses and "
               << params.getNumTransporters() << " transporters." << RESET << "\n";
+}
+
+// Ajouter un client à la simulation
+void Simulation::addClient(std::shared_ptr<Client> client) {
+    clients.push_back(client);
+}
+
+// Afficher les informations des clients
+void Simulation::displayClients() const {
+    std::cout << BLUE << BOLD << "\n=== Clients Information ===\n" << RESET;
+    for (const auto& client : clients) {
+        std::cout << "Client ID: " << client->getId() 
+                  << ", Name: " << client->getName() << "\n";
+        client->displayOrders();
+    }
+}
+
+// Passer une commande pour un client
+void Simulation::placeOrder(int clientId, int productId) {
+    auto it = std::find_if(clients.begin(), clients.end(), 
+        [clientId](const std::shared_ptr<Client>& client) { return client->getId() == clientId; });
+
+    if (it != clients.end()) {
+        (*it)->addOrder(productId);
+        std::cout << GREEN << "Order placed: Client " << (*it)->getName() 
+                  << " ordered Product ID " << productId << RESET << "\n";
+    } else {
+        std::cout << RED << "Error: Client with ID " << clientId << " not found." << RESET << "\n";
+    }
 }
 
 // Ajouter un entrepôt à la simulation

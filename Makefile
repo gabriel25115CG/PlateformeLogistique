@@ -14,6 +14,7 @@ SRC_FILES = $(SRC_PLATFORM_DIR)/Conveyor.cpp \
             $(SRC_PLATFORM_DIR)/Dock.cpp \
             $(SRC_PLATFORM_DIR)/Platform.cpp \
             $(SRC_PLATFORM_DIR)/Shelf.cpp \
+            $(SRC_PLATFORM_DIR)/Client.cpp \
             $(SRC_PLATFORM_DIR)/Transporter.cpp \
             $(SRC_PLATFORM_DIR)/Warehouse.cpp \
             $(SRC_SIMULATION_DIR)/Simulation.cpp \
@@ -23,6 +24,7 @@ SRC_FILES = $(SRC_PLATFORM_DIR)/Conveyor.cpp \
 # Liste des fichiers d'en-tête à inclure
 INC_FILES = $(INC_DIR)/platform/Conveyor.h \
             $(INC_DIR)/platform/Dock.h \
+            $(INC_DIR)/platform/Client.h \
             $(INC_DIR)/platform/Driver.h \
             $(INC_DIR)/platform/Entity.h \
             $(INC_DIR)/platform/Location.h \
