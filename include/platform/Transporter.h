@@ -10,10 +10,11 @@ private:
     bool missionInProgress;
     int productsDelivered;  // Nombre de produits livrés
     double distanceTraveled;  // Distance parcourue par le transporteur (en kilomètres ou autres unités)
+    double carbonEmissionRate;  // Taux d'émission en kg CO₂/km
 
 public:
     // Constructeur
-    Transporter(int id, const std::string& name);
+    Transporter(int id, const std::string& name, double emissionRate);
 
     // Méthode pour obtenir l'ID du transporteur
     int getId() const;
@@ -41,6 +42,9 @@ public:
 
     // Récupérer la distance parcourue
     double getDistanceTraveled() const;
+
+    // Calculer l'impact carbone
+    double calculateCarbonImpact() const;
 };
 
 #endif // TRANSPORTER_H

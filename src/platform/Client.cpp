@@ -2,8 +2,8 @@
 #include <iostream>
 
 // Constructeur
-Client::Client(int id, const std::string& name)
-    : id(id), name(name) {}
+Client::Client(int id, const std::string& name, double distance)
+    : id(id), name(name), distance(distance) {}
 
 // Récupérer l'identifiant du client
 int Client::getId() const {
@@ -13,6 +13,16 @@ int Client::getId() const {
 // Récupérer le nom du client
 std::string Client::getName() const {
     return name;
+}
+
+// Getter pour la distance
+double Client::getDistance() const {
+    return distance;
+}
+
+// Setter pour la distance
+void Client::setDistance(double dist) {
+    distance = dist;
 }
 
 // Ajouter une commande

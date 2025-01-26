@@ -5,8 +5,8 @@
 #include <iostream>
 #include <algorithm>
 #include "Client.h"
+#include <cmath> // Pour utiliser std::sqrt
 
-// Codes ANSI pour les couleurs
 #define RESET       "\033[0m"
 #define BOLD        "\033[1m"
 #define RED         "\033[31m"
@@ -94,6 +94,9 @@ void Simulation::end() {
 
     // Calculer les performances à la fin de la simulation
     calculatePerformance();
+
+    // Calculer et afficher l'impact carbone total
+    displayCarbonImpact();
 }
 
 // Afficher l'état de la simulation
@@ -134,6 +137,36 @@ void Simulation::calculatePerformance() {
     for (const auto& warehouse : warehouses) {
         totalProductsInStock += warehouse->getProducts().size();
     }
+}
+
+// Calculer l'impact carbone entre un client et un entrepôt
+double Simulation::calculateCarbonImpact(const std::shared_ptr<Client>& client, const std::shared_ptr<Warehouse>& warehouse) const {
+    // Utiliser la distance déjà stockée dans le client
+    double distance = client->getDistance();  // Distance en km
+    double co2EmissionRate = 0.25; // Exemple d'émission de CO₂ par km (peut être modifié selon le transporteur)
+
+    return distance * co2EmissionRate; // Calcul de l'impact carbone
+}
+
+// Calculer l'impact carbone total pour tous les transporteurs
+double Simulation::calculateTotalCarbonImpact() const {
+    double totalCarbonImpact = 0.0;
+
+    // Calculer l'impact carbone pour chaque transporteur
+    for (const auto& transporter : transporters) {
+        totalCarbonImpact += transporter->calculateCarbonImpact();
+    }
+
+    return totalCarbonImpact;
+}
+
+// Afficher l'impact carbone total
+void Simulation::displayCarbonImpact() const {
+    double totalCarbonImpact = calculateTotalCarbonImpact();  // Calculer l'impact carbone total
+
+    std::cout << GREEN << BOLD << "\n=== Carbon Impact Report ===\n" << RESET;
+    std::cout << YELLOW << "Total Carbon Emissions: " << WHITE 
+              << totalCarbonImpact << " kg CO₂" << RESET << "\n";
 }
 
 // Afficher les performances de la simulation

@@ -7,7 +7,7 @@
 #include "platform/Client.h" // Inclure la classe Client si elle est disponible
 
 int main() {
-    // Définir les paramètres de la simulation (nombre d'entrepôts et de transporteurs)
+    // === Définir les paramètres de la simulation ===
     int numWarehouses = 3;
     int numTransporters = 2;
     SimulationParams simParams(numWarehouses, numTransporters);
@@ -18,14 +18,15 @@ int main() {
     // === Création des entrepôts et ajout à la simulation ===
     for (int i = 0; i < numWarehouses; ++i) {
         auto warehouse = std::make_shared<Warehouse>(
-            i, "Warehouse_" + std::to_string(i + 1), 10); // Capacité 10 pour chaque entrepôt
+            i, "Warehouse_" + std::to_string(i + 1), 10, i * 10.0, i * 15.0); // Coordonnées simulées (x, y)
         simulation.addWarehouse(warehouse);
     }
 
     // === Création des transporteurs et ajout à la simulation ===
     for (int i = 0; i < numTransporters; ++i) {
+        // Ajout d'un paramètre d'émission de CO₂ pour correspondre à la classe Transporter
         auto transporter = std::make_shared<Transporter>(
-            i, "Transporter_" + std::to_string(i + 1));
+            i, "Transporter_" + std::to_string(i + 1), 0.25); // 0.25 kg CO₂/km par défaut
         simulation.addTransporter(transporter);
     }
 
@@ -33,7 +34,7 @@ int main() {
     for (int i = 0; i < numWarehouses; ++i) {
         for (int j = 0; j < 5; ++j) { // Ajouter 5 produits à chaque entrepôt
             auto product = std::make_shared<Product>(
-                j, "Product_" + std::to_string(j + 1), 2.5, 10); // Exemple de produit
+                j, "Product_" + std::to_string(j + 1), 2.5, 10); // Poids 2.5, Stock 10
             if (simulation.addProductToWarehouse(i, product)) {
                 std::cout << "Product_" << j + 1 << " added to Warehouse_" << i + 1 << ".\n";
             } else {
@@ -42,16 +43,17 @@ int main() {
         }
     }
 
-    // === Création et ajout des clients (facultatif, selon vos besoins) ===
-    auto client1 = std::make_shared<Client>(1, "Alice");
-    auto client2 = std::make_shared<Client>(2, "Bob");
+    // === Création et ajout des clients ===
+    auto client1 = std::make_shared<Client>(1, "Alice", 50.0); // Distance = 50 km
+    auto client2 = std::make_shared<Client>(2, "Bob", 60.0);   // Distance = 60 km
+
 
     simulation.addClient(client1);
     simulation.addClient(client2);
 
     // === Passer des commandes ===
-    simulation.placeOrder(1, 101); // Client Alice commande Product_101
-    simulation.placeOrder(2, 202); // Client Bob commande Product_202
+    simulation.placeOrder(1, 0); // Client Alice commande Product_0
+    simulation.placeOrder(2, 1); // Client Bob commande Product_1
 
     // === Démarrer la simulation ===
     simulation.start();

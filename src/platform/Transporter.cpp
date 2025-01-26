@@ -1,10 +1,12 @@
 #include "Transporter.h"
-#include <iostream> // Ajouter cette ligne pour les `std::cout`
+#include <iostream>
 
 // Constructeur de la classe Transporter
-Transporter::Transporter(int id, const std::string& name)
-    : id(id), name(name), missionInProgress(false), productsDelivered(0), distanceTraveled(0.0) {
-    std::cout << "Transporter " << name << " with ID " << id << " created.\n";
+Transporter::Transporter(int id, const std::string& name, double emissionRate)
+    : id(id), name(name), missionInProgress(false), productsDelivered(0),
+      distanceTraveled(0.0), carbonEmissionRate(emissionRate) {
+    std::cout << "Transporter " << name << " with ID " << id 
+              << " created. Emission rate: " << emissionRate << " kg CO₂/km\n";
 }
 
 // Méthode pour obtenir l'ID du transporteur
@@ -60,4 +62,9 @@ void Transporter::addDistanceTraveled(double distance) {
 // Récupérer la distance parcourue
 double Transporter::getDistanceTraveled() const {
     return distanceTraveled;
+}
+
+// Calculer l'impact carbone
+double Transporter::calculateCarbonImpact() const {
+    return distanceTraveled * carbonEmissionRate;
 }

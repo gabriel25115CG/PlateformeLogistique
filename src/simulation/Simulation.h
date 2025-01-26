@@ -9,7 +9,6 @@
 #include <vector>
 #include <memory>
 
-// Classe Simulation
 class Simulation {
 private:
     SimulationParams params;  // Paramètres de la simulation
@@ -62,8 +61,20 @@ public:
     // Afficher les performances
     void displayPerformance() const;
 
-    const std::vector<std::shared_ptr<Transporter>>& getTransporters() const;
+    // Afficher l'impact carbone total
+    void displayCarbonImpact() const;
 
+    // Calculer la distance entre un entrepôt et un client
+    double calculateDistance(const std::shared_ptr<Client>& client, const std::shared_ptr<Warehouse>& warehouse) const;
+
+    // Calculer l'impact carbone entre un entrepôt et un client
+    double calculateCarbonImpact(const std::shared_ptr<Client>& client, const std::shared_ptr<Warehouse>& warehouse) const;
+
+    // Calculer l'impact carbone total pour tous les transporteurs
+    double calculateTotalCarbonImpact() const;
+
+    // Récupérer la liste des transporteurs
+    const std::vector<std::shared_ptr<Transporter>>& getTransporters() const;
 };
 
 #endif // SIMULATION_H

@@ -10,11 +10,13 @@
 class Warehouse : public PlatformElement {
 private:
     std::vector<std::shared_ptr<Product>> products;  // Liste des produits stockés dans l'entrepôt
-    int capacity;  // Capacité maximale de l'entrepôt (nombre de produits)
+    int capacity;                                    // Capacité maximale de l'entrepôt (nombre de produits)
+    double distance;                                 // Distance entre l'entrepôt et le client
+    double time;                                     // Temps total pour la gestion des stocks
 
 public:
     // Constructeur
-    Warehouse(int id, const std::string& name, int capacity);
+    Warehouse(int id, const std::string& name, int capacity, double distance = 0.0, double time = 0.0);
 
     // Ajouter un produit à l'entrepôt
     bool addProduct(std::shared_ptr<Product> product);

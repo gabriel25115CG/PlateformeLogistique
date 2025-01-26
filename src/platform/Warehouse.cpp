@@ -3,9 +3,9 @@
 #include <algorithm>
 
 // Constructeur de la classe Warehouse
-Warehouse::Warehouse(int id, const std::string& name, int capacity)
-    : PlatformElement(id, name), capacity(capacity) {  // Appel au constructeur de PlatformElement
-    std::cout << "Warehouse " << name << " created with capacity " << capacity << ".\n";
+Warehouse::Warehouse(int id, const std::string& name, int capacity, double distance, double time)
+    : PlatformElement(id, name), capacity(capacity), distance(distance), time(time) {  // Appel au constructeur de PlatformElement
+    std::cout << "Warehouse " << name << " created with capacity " << capacity << ". Distance: " << distance << "km. Time: " << time << " hours.\n";
 }
 
 // Ajouter un produit à l'entrepôt
